@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -346,6 +347,9 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Совсем ничего", Toast.LENGTH_SHORT);
+            toast.show();
             return true;
         }
 
@@ -361,6 +365,11 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_favourites) {
             // Handle the camera action
         } else if (id == R.id.nav_history) {
+            Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+            intent.putExtra("UserID", String.valueOf(UserID));
+            Log.i("\n\nИСТОРИЯ: ", "main -> history");
+            startActivity(intent);
+
 
         } else if (id == R.id.nav_settings) {
 

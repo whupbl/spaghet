@@ -18,6 +18,11 @@ public interface SpaghetAPI {
     @GET("/spaghet/history/set/client")
     Call<RequestStatus> makeOrder(@Query("DishID") String dish, @Query("UserID") String user);
 
+    @GET("/spaghet/history/assess/client")
+    Call<RequestStatus> assessOrder(@Query("ID") String orderID, @Query("Mark") String mark);
+
+    @GET("/spaghet/history/get/client")
+    Call<ClientHistory> getHistory (@Query("ID") String userID);
 
 }
 
