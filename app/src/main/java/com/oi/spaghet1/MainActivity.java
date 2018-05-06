@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
 
     private GoogleMap mMap;
     private Retrofit retrofit;
-    private SpaghetAPI spaghetAPI;
+    public static SpaghetAPI spaghetAPI;
     private List<Dish> points = null;
     private int UserID = 1;
 

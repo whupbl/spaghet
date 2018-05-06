@@ -1,6 +1,7 @@
 package com.oi.spaghet1;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +17,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    List<History> posts;
+    private RecyclerView recyclerView;
+    private List<History> posts;
     private SpaghetAPI spaghetAPI;
     private Retrofit retrofit;
+    HistoryAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +36,11 @@ public class HistoryActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        HistoryAdapter adapter = new HistoryAdapter(posts);
+        adapter = new HistoryAdapter(posts, HistoryActivity.this);
         recyclerView.setAdapter(adapter);
 
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://73d93cf4.ngrok.io")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        retrofit = adapter.retrofit;
 
         spaghetAPI = retrofit.create(SpaghetAPI.class);
         String id = getIntent().getStringExtra("UserID");
@@ -57,6 +54,7 @@ public class HistoryActivity extends AppCompatActivity {
                     Log.i("RESULT", "response " + response.body().toString());
                     posts.addAll(response.body().getChildren());
                     recyclerView.getAdapter().notifyDataSetChanged();
+
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(HistoryActivity.this);
                     builder.setTitle("Ошибка!")
@@ -81,5 +79,16 @@ public class HistoryActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        switch (requestCode){
+            case 1:
+                recreate();
+                break;
+            case 2: break;
+        }
     }
 }
