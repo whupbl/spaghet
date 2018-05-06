@@ -70,12 +70,12 @@
             android:text="Максимальное время готовки (мин)" />
 
         <EditText
-            android:id="@+id/editText7"
+            android:id="@+id/cooking_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
-            android:text="240"  />
+            android:text="240" />
 
         <TextView
             android:id="@+id/textView6"

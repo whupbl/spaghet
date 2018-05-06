@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class categories {
-    public static Map<String, Collection<String>> map = new HashMap<String, Collection<String>>();
-    static public void addSubcatToCat(String main, String sub){
-        Collection<String> values = map.get(main);
-        if (values==null) {
+    static public  Map<String, Collection<String>> map = new HashMap<String, Collection<String>>();
+    static public void addSubcatToCat(String cat, String sub){
+        Collection<String> values = map.get(cat);
+        if (values == null) {
             values = new ArrayList<String>();
-            map.put(main, values);
+            map.put(cat, values);
         }
         values.add(sub);
     }
