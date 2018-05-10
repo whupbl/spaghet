@@ -35,7 +35,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public HistoryAdapter(List<History> posts, Context cont) {
         this.posts = posts;
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://73d93cf4.ngrok.io")
+                .baseUrl("http://41c7c494.ngrok.io")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

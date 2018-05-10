@@ -74,14 +74,14 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Фрагмент с картой
+        // Фрагмент с картойc7
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://73d93cf4.ngrok.io")
+                .baseUrl("http://41c7c494.ngrok.io")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

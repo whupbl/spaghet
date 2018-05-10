@@ -29,7 +29,7 @@ public class OrderAssessActivity extends AppCompatActivity {
         final AlertDialog.Builder ratingdialog = new AlertDialog.Builder(this);
 
         ratingdialog.setIcon(android.R.drawable.btn_star_big_on);
-        ratingdialog.setTitle("Голосуем за любимого кота!");
+        ratingdialog.setTitle("Ваша оценка");
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View linearlayout = inflater.inflate(R.layout.ratingdialog, null);
