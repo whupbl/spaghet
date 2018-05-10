@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2018-05-07 01:54:57">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2018-05-11 05:33:09">
 <Routine name="REST" type="INC" timestamp="64566,48400.509836"><![CDATA[
 #include %occErrors
 #include %ZEN.Utils
@@ -74,7 +74,7 @@
 Клиент</Description>
 <SqlTableName>Client</SqlTableName>
 <Super>%Persistent,%Populate</Super>
-<TimeChanged>64774,65839.766679</TimeChanged>
+<TimeChanged>64778,50127.194059</TimeChanged>
 <TimeCreated>64773,55937.539939</TimeCreated>
 
 <Property name="UserID">
@@ -103,7 +103,7 @@
 <IdLocation>^SPAGHET.ClientD</IdLocation>
 <IndexLocation>^SPAGHET.ClientI</IndexLocation>
 <StreamLocation>^SPAGHET.ClientS</StreamLocation>
-<ExtentSize>5</ExtentSize>
+<ExtentSize>6</ExtentSize>
 <Data name="ClientDefaultData">
 <Structure>listnode</Structure>
 <Subscript/>
@@ -126,12 +126,12 @@
 <AverageFieldSize>1</AverageFieldSize>
 </Property>
 <Property name="Rating">
-<Selectivity>20.0000%</Selectivity>
-<AverageFieldSize>9</AverageFieldSize>
+<Selectivity>16.6667%</Selectivity>
+<AverageFieldSize>8.67</AverageFieldSize>
 </Property>
 <Property name="UserID">
 <Selectivity>1</Selectivity>
-<AverageFieldSize>1.8</AverageFieldSize>
+<AverageFieldSize>1</AverageFieldSize>
 </Property>
 <SQLMap name="IDKEY">
 <BlockCount>-4</BlockCount>
@@ -148,7 +148,7 @@
 Повар</Description>
 <SqlTableName>Cook</SqlTableName>
 <Super>%Persistent,%Populate</Super>
-<TimeChanged>64774,65747.98016</TimeChanged>
+<TimeChanged>64778,50134.428271</TimeChanged>
 <TimeCreated>64773,62141.155238</TimeCreated>
 
 <Property name="UserID">
@@ -192,7 +192,7 @@
 <IdLocation>^SPAGHET.CookD</IdLocation>
 <IndexLocation>^SPAGHET.CookI</IndexLocation>
 <StreamLocation>^SPAGHET.CookS</StreamLocation>
-<ExtentSize>3</ExtentSize>
+<ExtentSize>7</ExtentSize>
 <Data name="CookDefaultData">
 <Value name="1">
 <Value>%%CLASSNAME</Value>
@@ -222,7 +222,7 @@
 </Property>
 <Property name="%%ID">
 <Selectivity>1</Selectivity>
-<AverageFieldSize>1</AverageFieldSize>
+<AverageFieldSize>1.14</AverageFieldSize>
 </Property>
 <Property name="CookStatus">
 <Selectivity>50.0000%</Selectivity>
@@ -233,20 +233,20 @@
 <AverageFieldSize>1</AverageFieldSize>
 </Property>
 <Property name="Latitude">
-<Selectivity>33.3333%</Selectivity>
-<AverageFieldSize>4</AverageFieldSize>
+<Selectivity>14.2857%</Selectivity>
+<AverageFieldSize>3.71</AverageFieldSize>
 </Property>
 <Property name="Longitude">
-<Selectivity>33.3333%</Selectivity>
-<AverageFieldSize>4</AverageFieldSize>
+<Selectivity>14.2857%</Selectivity>
+<AverageFieldSize>3.71</AverageFieldSize>
 </Property>
 <Property name="Rating">
-<Selectivity>33.3333%</Selectivity>
-<AverageFieldSize>3.67</AverageFieldSize>
+<Selectivity>14.2857%</Selectivity>
+<AverageFieldSize>4</AverageFieldSize>
 </Property>
 <Property name="UserID">
 <Selectivity>1</Selectivity>
-<AverageFieldSize>1.67</AverageFieldSize>
+<AverageFieldSize>1.14</AverageFieldSize>
 </Property>
 <SQLMap name="IDKEY">
 <BlockCount>-4</BlockCount>
@@ -263,7 +263,7 @@
 Блюдо</Description>
 <SqlTableName>Dish</SqlTableName>
 <Super>%Persistent,%Populate</Super>
-<TimeChanged>64774,66177.778213</TimeChanged>
+<TimeChanged>64778,50141.560619</TimeChanged>
 <TimeCreated>64773,63175.684653</TimeCreated>
 
 <Property name="Name">
@@ -342,28 +342,28 @@
 <AverageFieldSize>1.78</AverageFieldSize>
 </Property>
 <Property name="CookID">
-<Selectivity>50.0000%</Selectivity>
-<AverageFieldSize>1</AverageFieldSize>
+<Selectivity>14.2857%</Selectivity>
+<AverageFieldSize>1.13</AverageFieldSize>
 </Property>
 <Property name="Description">
 <Selectivity>2.5000%</Selectivity>
-<AverageFieldSize>4.98</AverageFieldSize>
+<AverageFieldSize>4.88</AverageFieldSize>
 </Property>
 <Property name="Name">
 <Selectivity>2.5000%</Selectivity>
-<AverageFieldSize>16.25</AverageFieldSize>
+<AverageFieldSize>16.28</AverageFieldSize>
 </Property>
 <Property name="Price">
 <Selectivity>2.5000%</Selectivity>
-<AverageFieldSize>3.9</AverageFieldSize>
+<AverageFieldSize>3.85</AverageFieldSize>
 </Property>
 <Property name="SubcategoryID">
-<Selectivity>6.6667%</Selectivity>
-<AverageFieldSize>1.55</AverageFieldSize>
+<Selectivity>11.1111%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
 </Property>
 <Property name="TimeToCook">
 <Selectivity>2.5000%</Selectivity>
-<AverageFieldSize>8.8</AverageFieldSize>
+<AverageFieldSize>8.88</AverageFieldSize>
 </Property>
 <SQLMap name="IDKEY">
 <BlockCount>-4</BlockCount>
@@ -607,7 +607,7 @@
 Пользователь</Description>
 <SqlTableName>User</SqlTableName>
 <Super>%Persistent,%Populate</Super>
-<TimeChanged>64774,65698.959402</TimeChanged>
+<TimeChanged>64778,45130.275989</TimeChanged>
 <TimeCreated>64773,54127.080576</TimeCreated>
 
 <Property name="Login">
@@ -664,7 +664,7 @@
 <IdLocation>^SPAGHET.UserD</IdLocation>
 <IndexLocation>^SPAGHET.UserI</IndexLocation>
 <StreamLocation>^SPAGHET.UserS</StreamLocation>
-<ExtentSize>20</ExtentSize>
+<ExtentSize>10</ExtentSize>
 <Data name="UserDefaultData">
 <Value name="1">
 <Value>%%CLASSNAME</Value>
@@ -703,15 +703,15 @@
 </Property>
 <Property name="%%ID">
 <Selectivity>1</Selectivity>
-<AverageFieldSize>1.55</AverageFieldSize>
+<AverageFieldSize>1.1</AverageFieldSize>
 </Property>
 <Property name="Address">
-<Selectivity>5.0000%</Selectivity>
-<AverageFieldSize>4.95</AverageFieldSize>
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>4.9</AverageFieldSize>
 </Property>
 <Property name="Email">
-<Selectivity>5.0000%</Selectivity>
-<AverageFieldSize>4.85</AverageFieldSize>
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>5</AverageFieldSize>
 </Property>
 <Property name="FirstName">
 <Selectivity>10.0000%</Selectivity>
@@ -722,23 +722,23 @@
 <AverageFieldSize>4.8</AverageFieldSize>
 </Property>
 <Property name="Login">
-<Selectivity>5.0000%</Selectivity>
-<AverageFieldSize>4.95</AverageFieldSize>
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>5</AverageFieldSize>
 </Property>
 <Property name="Name">
-<Selectivity>5.0000%</Selectivity>
-<AverageFieldSize>15.65</AverageFieldSize>
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>15.4</AverageFieldSize>
 </Property>
 <Property name="Password">
-<Selectivity>5.0000%</Selectivity>
-<AverageFieldSize>4.95</AverageFieldSize>
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>5</AverageFieldSize>
 </Property>
 <Property name="PhoneNumber">
-<Selectivity>5.0000%</Selectivity>
+<Selectivity>10.0000%</Selectivity>
 <AverageFieldSize>4.8</AverageFieldSize>
 </Property>
 <Property name="RegistrationDate">
-<Selectivity>5.0000%</Selectivity>
+<Selectivity>10.0000%</Selectivity>
 <AverageFieldSize>5</AverageFieldSize>
 </Property>
 <SQLMap name="IDKEY">
@@ -1210,89 +1210,51 @@ output(s)    set str=str_s   quit
 
 <Class name="Web.Broker">
 <Super>Web.AbstractREST</Super>
-<TimeChanged>64774,83342.972287</TimeChanged>
+<TimeChanged>64779,19769.291706</TimeChanged>
 <TimeCreated>64774,4086.87956</TimeCreated>
 
 <XData name="UrlMap">
 <Data><![CDATA[
 <Routes>
+<!-- Проверка работоспособности -->
 <Route Url="/test" Method="GET" Call="Web.Utils:Test"/>
 
+<!-- Авторизация клиента (м.б. поменяется) 
+	 Метод реализован, но может другая логика у Тимофея будет -->
 <Route Url="/auth/client" Method="GET" Call="Web.Utils:ClientAuth"/>
 
+<!-- Авторизация повара (м.б. поменяется) 
+	 Метод реализован, но может другая логика у Тимофея будет -->
 <Route Url="/auth/cook" Method="GET" Call="Web.Utils:CookAuth"/>
 
+<!-- Получение списка категорий с подкатегориями -->
 <Route Url="/cat" Method="GET" Call="Web.Utils:GetCategories"/>
 
+<!-- Поиск по фильтрам -->
 <Route Url="/find" Method="GET" Call="Web.Utils:FindDishes"/>
 
+<!-- Получить историю клиента -->
 <Route Url="/history/get/client" Method="GET" Call="Web.Utils:GetClientHistory"/>
+
+<!-- Получить историю повара
+	 Метод не реализован -->
 <Route Url="/history/get/cook" Method="GET" Call="Web.Utils:GetCookHistory"/>
 
+<!-- Я боженька названий методов, это добавить элемент в историю клиента (сделать заказ крч)
+	 -->
 <Route Url="/history/set/client" Method="GET" Call="Web.Utils:SetClientHistory"/>
+
+<!-- Аналогично, сделать заказ поваром
+	 Метод не реализован -->
 <Route Url="/history/set/cook" Method="GET" Call="Web.Utils:SetCookHistory"/>
 
+<!-- Оценить блюдо клиентом -->
 <Route Url="/history/assess/client" Method="GET" Call="Web.Utils:ClientAssessDish"/>
+
+<!-- Оценить блюдо поваром
+	 Метод не реализован -->
 <Route Url="/history/assess/cook" Method="GET" Call="Web.Utils:CookAssessDish"/>
 
-<!-- Запрос №0
-     Получить ИД UserConversation для данного человека в данной группе  -->
-<Route Url="/conversations" Method="POST" Call="Web.Utils:CreateOrGetConversation"/>
-
-<!-- Запрос №1
-     Получить все непрочитанные сообщения в конкретном диалоге -->
-<Route Url="/conversations/:userConv" Method="GET" Call="Web.Utils:GetUnreadMessages"/>
-
-<!-- Запрос №2
-     Подгрузить вниз
-	 userConv - ID userConversation 
-	 idmess - ИД нижнего прочитанного сообщения -->
-<Route Url="/messages/new/:userConv/:idmess" Method="GET" Call="Web.Utils:GetNewMessages"/>
-
-<!-- Запрос №3
-     Получить 20 сообщений в конкретном диалоге (вверх)
-	 userConv - ID userConversation 
-	 idmess - ИД верхнего прочитанного сообщения -->
-<Route Url="/messages/old/:userConv/:idmess" Method="GET" Call="Web.Utils:GetHistoryMessages"/>
-
-<!-- Запрос №4
-     Получить список важных сообщений
-	 userConv - ID userConversation   -->
-<Route Url="/important/:userConv" Method="GET" Call="Web.Utils:GetListOfImportantMessages"/>
-
-<!-- Запрос №5
-     Пометить как важное
-	 idmess - ИД сообщения
-	 status - 1 или 0 -->
-<Route Url="/important/:idmess/:status" Method="POST" Call="Web.Utils:MarkAsImportant"/>
-
-<!-- Запрос №6
-     Создать сообщение -->
-<Route Url="/message" Method="POST" Call="Web.Utils:PostNewMessage"/>
-
-<!-- Запрос №7
-     Изменить последнее прочитанное сообщение
-	 userConv - ID userConversation 
-	 idmess - ИД сообщения -->
-<Route Url="/message/:userConv/:idmess" Method="POST" Call="Web.Utils:UpdateLastMessage"/>
-
-<!-- Запрос №8 - 
-     Поиск сообщения -->
-<Route Url="/message/find" Method="GET" Call="Web.Utils:FindMessage"/>
-
-<!-- Запрос №9 - 
-     Загрузить входящие -->
-<Route Url="/dec/incoming" Method="GET" Call="Web.Utils:GetIncomingDecanatMessages"/>
-
-<!-- Запрос №10
-     Изменить последнее прочитанное деканатом сообщение
-	 userConv - ID userConversation 
-	 idmess - ИД сообщения -->
-<Route Url="/dec/message/:userConv/:idmess" Method="POST" Call="Web.Utils:UpdateLastDecMessage"/>
-
-<!-- Запрос №11
-      Загрузить диалог деканата с человеком -->
-<Route Url="/dec/conversation/:userConv" Method="GET" Call="Web.Utils:GetUnreadDecMessages"/>
 
 </Routes>
 ]]></Data>
@@ -1470,7 +1432,7 @@ output(s)    set str=str_s   quit
 </Class>
 
 
-<Project name="spaghet" LastModified="2018-05-07 01:54:39.272483">
+<Project name="sp" LastModified="2018-05-11 05:32:38.012879">
   <Items>
     <ProjectItem name="REST.INC" type="MAC"></ProjectItem>
     <ProjectItem name="SPAGHET" type="PKG"></ProjectItem>
