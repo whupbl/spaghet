@@ -14,7 +14,7 @@ public class Dish {
     private Double Lat;
     private Double Lng;
     private String Phone;
-//hi
+
     public String getTitle() {
         return Title;
     }
