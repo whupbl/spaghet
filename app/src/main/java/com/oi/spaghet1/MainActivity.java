@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity
     private Retrofit retrofit;
     public static SpaghetAPI spaghetAPI;
     private List<Dish> points = null;
-    private int UserID = 1;
+    private String UserID = "1";
+    private String UserName = "Иванов";
 
     // Метод, срабатывающий при создании активности вот этой вот главной
     @Override
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(fabListener);
 
 
+
         // Менюшка слева
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -77,7 +79,9 @@ public class MainActivity extends AppCompatActivity
 
         //бИРЮЗОВАЯ ШАПКА СВЕРХУ
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.username);
+        navUsername.setText(UserName);
 
         // Фрагмент с картойc7
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
