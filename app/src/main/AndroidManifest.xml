@@ -51,6 +51,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.oi.spaghet1.NewDishActivity" />
         </activity>
+        <activity android:name=".CookHistoryActivity"></activity>
     </application>
 
 </manifest>
