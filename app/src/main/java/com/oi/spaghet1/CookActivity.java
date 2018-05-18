@@ -35,7 +35,7 @@ public class CookActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://6e789bbf.ngrok.io")
+                .baseUrl("http://ae9845f5.ngrok.io")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -60,6 +60,7 @@ public class CookActivity extends AppCompatActivity {
                                 categories.addSubcatToCat(cl.getChildren().get(i).getCatName(), cl.getChildren().get(i).getSubName());
                             }
                             Intent intent = new Intent(CookActivity.this, NewDishActivity.class);
+                            intent.putExtra("UserID", UserID);
                             startActivityForResult(intent, 1);
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(CookActivity.this);
