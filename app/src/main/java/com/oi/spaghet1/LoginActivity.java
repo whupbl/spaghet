@@ -195,8 +195,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             //login = "IvanovI";
             //password = "12345";
-            login = "N5954";
-            password = "M2238";
+            //login = "N5954";
+            //password = "M2238";
             //login = "XXX";
             //password = "XXXXXX";
 
