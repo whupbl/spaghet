@@ -108,7 +108,7 @@
                 android:layout_marginRight="60dp"
                 android:background="@color/colorPrimary"
                 android:text="@string/action_sign_in_client"
-                android:textStyle="bold" />
+                android:textColor="@android:color/background_light" />
 
             <Button
                 android:id="@+id/login_sign_in_button_cook"

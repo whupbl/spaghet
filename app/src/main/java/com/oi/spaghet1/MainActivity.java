@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         changeToolbarFont(toolbar, this);
 
-        UserID = getIntent().getStringExtra("u");
+        UserID = getIntent().getStringExtra("id");
+        UserName = getIntent().getStringExtra("name");
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://6e789bbf.ngrok.io")
+                .baseUrl(SpaghetAPI.serverURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
