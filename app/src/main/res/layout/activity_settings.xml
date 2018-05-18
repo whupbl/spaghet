@@ -62,9 +62,9 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:ems="10"
-            android:inputType="number"
             android:gravity="center_horizontal"
-            android:text="100"/>
+            android:inputType="number"
+            android:text="0" />
 
         <TextView
             android:id="@+id/textView5"
