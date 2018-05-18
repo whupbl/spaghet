@@ -1,11 +1,14 @@
 package com.oi.spaghet1;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -47,7 +51,8 @@ public class MainActivity extends AppCompatActivity
     private Retrofit retrofit;
     public static SpaghetAPI spaghetAPI;
     private List<Dish> points = null;
-    private String UserID = "5";
+    private String UserID = "1";
+    private String UserName = "Иванов";
 
     // Метод, срабатывающий при создании активности вот этой вот главной
     @Override
@@ -57,6 +62,7 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        changeToolbarFont(toolbar, this);
 
         UserID = getIntent().getStringExtra("u");
 
@@ -64,6 +70,7 @@ public class MainActivity extends AppCompatActivity
 
         // Кнопочка розовая круглая
         fab.setOnClickListener(fabListener);
+
 
 
         // Менюшка слева
@@ -75,7 +82,9 @@ public class MainActivity extends AppCompatActivity
 
         //бИРЮЗОВАЯ ШАПКА СВЕРХУ
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.username);
+        navUsername.setText(UserName);
 
         // Фрагмент с картойc7
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -215,7 +224,7 @@ public class MainActivity extends AppCompatActivity
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                final Call<RequestStatus> rsCall = spaghetAPI.makeOrder(id, UserID);
+                final Call<RequestStatus> rsCall = spaghetAPI.makeOrder(id, String.valueOf(UserID));
                 rsCall.enqueue(new Callback<RequestStatus>() {
                     @Override
                     public void onResponse(Call<RequestStatus> call, Response<RequestStatus> response) {
@@ -369,7 +378,7 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.nav_history) {
             Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
-            intent.putExtra("UserID", UserID);
+            intent.putExtra("UserID", String.valueOf(UserID));
             Log.i("\n\nИСТОРИЯ: ", "main -> history");
             startActivity(intent);
 
@@ -391,6 +400,23 @@ public class MainActivity extends AppCompatActivity
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    public static void changeToolbarFont(Toolbar toolbar, Activity context) {
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
+            View view = toolbar.getChildAt(i);
+            if (view instanceof TextView) {
+                TextView tv = (TextView) view;
+                if (tv.getText().equals(toolbar.getTitle())) {
+                    applyFont(tv, context);
+                    break;
+                }
+            }
+        }
+    }
+
+    public static void applyFont(TextView tv, Activity context) {
+        tv.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Playlist Script.otf"));
     }
 
 }
