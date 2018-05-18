@@ -3,6 +3,7 @@ package com.oi.spaghet1;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -18,19 +19,21 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -57,36 +60,55 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
+    private AutoCompleteTextView mLoginView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private Retrofit retrofit;
+    private SpaghetAPI spaghetAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mLoginView = (AutoCompleteTextView) findViewById(R.id.Login);
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+        retrofit = new Retrofit.Builder()
+                //.baseUrl("http://6e789bbf.ngrok.io")
+                .baseUrl("http://6c870059.ngrok.io")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        spaghetAPI = retrofit.create(SpaghetAPI.class);
+
+        /*mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    attemptLogin(null);
                     return true;
                 }
                 return false;
             }
-        });
+        });*/
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button_client);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        Button btn_clientSign = (Button) findViewById(R.id.login_sign_in_button_client);
+        btn_clientSign.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                attemptLogin("client");
+            }
+        });
+
+        Button btn_cookSign = (Button) findViewById(R.id.login_sign_in_button_cook);
+        btn_cookSign.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptLogin("cook");
             }
         });
 
@@ -110,7 +132,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(mLoginView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
                     .setAction(android.R.string.ok, new View.OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
@@ -143,49 +165,80 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptLogin() {
+    private void attemptLogin(String userType) {
         if (mAuthTask != null) {
             return;
         }
 
         // Reset errors.
-        mEmailView.setError(null);
+        mLoginView.setError(null);
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
+        String login = mLoginView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        /*if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
-        }
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
-        }
+        }*/
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
         } else {
+            //login = "IvanovI";
+            //password = "12345";
+            login = "N5954";
+            password = "M2238";
+            //login = "XXX";
+            //password = "XXXXXX";
+
+            if (userType.equals("client")) {
+                final Call<UserList> authClients = spaghetAPI.authClient(login, password);
+                final UserList users = new UserList();
+                final User user = new User();
+                authClients.enqueue(new Callback<UserList>() {
+                    @Override
+                    public void onResponse(Call<UserList> call, Response<UserList> response) {
+                        if (response.isSuccessful()) {
+                            users.setChildren(response.body().getChildren());
+                            if (users.getChildren().size() == 0){
+                                Intent intent = getIntent();
+                                finish();
+                                startActivity(intent);
+                                return;
+                            }
+                            user.setId(users.getChildren().get(0).getId());
+                            user.setName(users.getChildren().get(0).getName());
+                            Log.i("AUTH", user.getId());
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.putExtra("u", user.getId());
+                            startActivity(intent);
+                            return;
+                        } else {
+                            //auth.setId(String.valueOf(response.code()));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserList> call, Throwable t) {
+                        return;
+                    }
+                });
+            } else if (userType.equals("cook")) {
+                // Запрос на сверку данных повара
+            }
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask = new UserLoginTask(login, password);
             mAuthTask.execute((Void) null);
         }
     }
@@ -255,14 +308,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> emails = new ArrayList<>();
+        /*List<String> emails = new ArrayList<>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             emails.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
 
-        addEmailsToAutoComplete(emails);
+        addEmailsToAutoComplete(emails);*/
     }
 
     @Override
@@ -276,7 +329,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 new ArrayAdapter<>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
-        mEmailView.setAdapter(adapter);
+        mLoginView.setAdapter(adapter);
     }
 
 
@@ -296,11 +349,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
+        private final String Login;
         private final String mPassword;
 
-        UserLoginTask(String email, String password) {
-            mEmail = email;
+        UserLoginTask(String login, String password) {
+            Login = login;
             mPassword = password;
         }
 
@@ -317,7 +370,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
+                if (pieces[0].equals(Login)) {
                     // Account exists, return true if the password matches.
                     return pieces[1].equals(mPassword);
                 }

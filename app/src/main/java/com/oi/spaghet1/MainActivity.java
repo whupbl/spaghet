@@ -47,15 +47,18 @@ public class MainActivity extends AppCompatActivity
     private Retrofit retrofit;
     public static SpaghetAPI spaghetAPI;
     private List<Dish> points = null;
-    private int UserID = 1;
+    private String UserID = "5";
 
     // Метод, срабатывающий при создании активности вот этой вот главной
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        UserID = getIntent().getStringExtra("u");
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://41c7c494.ngrok.io")
+                .baseUrl("http://6e789bbf.ngrok.io")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -212,7 +215,7 @@ public class MainActivity extends AppCompatActivity
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                final Call<RequestStatus> rsCall = spaghetAPI.makeOrder(id, String.valueOf(UserID));
+                final Call<RequestStatus> rsCall = spaghetAPI.makeOrder(id, UserID);
                 rsCall.enqueue(new Callback<RequestStatus>() {
                     @Override
                     public void onResponse(Call<RequestStatus> call, Response<RequestStatus> response) {
@@ -366,7 +369,7 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.nav_history) {
             Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
-            intent.putExtra("UserID", String.valueOf(UserID));
+            intent.putExtra("UserID", UserID);
             Log.i("\n\nИСТОРИЯ: ", "main -> history");
             startActivity(intent);
 

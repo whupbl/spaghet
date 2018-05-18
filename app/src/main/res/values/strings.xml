@@ -9,7 +9,7 @@
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="prompt_login">Логин</string>
     <string name="prompt_password">Пароль</string>
     <string name="action_sign_in_client">Войти как Клиент</string>
     <string name="action_sign_in_cook">Войти как Повар</string>

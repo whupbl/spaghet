@@ -24,5 +24,7 @@ public interface SpaghetAPI {
     @GET("/spaghet/history/get/client")
     Call<ClientHistory> getHistory (@Query("ID") String userID);
 
-}
+    @GET("/spaghet/auth/client")
+    Call<UserList> authClient (@Query("login") String login, @Query("pass") String password);
 
+}

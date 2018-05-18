@@ -36,10 +36,10 @@
                 android:layout_height="wrap_content">
 
                 <AutoCompleteTextView
-                    android:id="@+id/email"
+                    android:id="@+id/Login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_email"
+                    android:hint="@string/prompt_login"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -65,7 +65,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/email_sign_in_button_client"
+                android:id="@+id/login_sign_in_button_client"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -73,7 +73,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/email_sign_in_button_cook"
+                android:id="@+id/login_sign_in_button_cook"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/action_sign_in_cook" />
