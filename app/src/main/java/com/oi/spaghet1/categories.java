@@ -15,6 +15,9 @@ public class categories {
         }
         values.add(sub);
     }
+    static public void clearAllCategories(){
+        map.clear();
+    }
     static public Collection<String> getSubcat(String main){
         return map.get(main);
     }

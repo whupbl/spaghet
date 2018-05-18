@@ -1,14 +1,16 @@
 package com.oi.spaghet1;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +29,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -54,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     private String UserID = "1";
     private String UserName = "Иванов";
 
-    // Метод, срабатывающий при создании активности вот этой вот главной
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +73,6 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(fabListener);
 
 
-
         // Менюшка слева
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -79,7 +82,8 @@ public class MainActivity extends AppCompatActivity
 
         //бИРЮЗОВАЯ ШАПКА СВЕРХУ
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);View headerView = navigationView.getHeaderView(0);
+        navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
         TextView navUsername = (TextView) headerView.findViewById(R.id.username);
         navUsername.setText(UserName);
 
@@ -103,6 +107,7 @@ public class MainActivity extends AppCompatActivity
         public void onClick(View v) {
             Log.i("НАЖАЛИ КНОПКУ", "РОЗОВУЮ");
 
+            categories.clearAllCategories();
             final Call<CategoriesList> cats = spaghetAPI.getCategories();
             final CategoriesList cl = new CategoriesList();
 
@@ -117,7 +122,7 @@ public class MainActivity extends AppCompatActivity
                         for (int i = 0; i < cl.getChildren().size(); i++) {
                             categories.addSubcatToCat(cl.getChildren().get(i).getCatName(), cl.getChildren().get(i).getSubName());
                         }
-                        Intent intent = new Intent(MainActivity.this, settings.class);
+                        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                         startActivityForResult(intent, 1);
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -159,8 +164,8 @@ public class MainActivity extends AppCompatActivity
         mMap = googleMap;
         LatLng krsk = new LatLng(56.009390, 92.853491);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(krsk, 10));
+
         if (points != null) {
-            Log.e("ВСЕ ХОРОШО", "response code РИСУЕМ");
             for (Dish p : points) {
                 LatLng pos = new LatLng(p.getLat(), p.getLng());
                 JSONObject j = new JSONObject();
@@ -192,6 +197,7 @@ public class MainActivity extends AppCompatActivity
         mMap.addMarker(new MarkerOptions()
                 .title("Красноярск")
                 .snippet("Ня-ня-ня")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 .position(krsk)).setTag(j);
 
 
@@ -270,7 +276,6 @@ public class MainActivity extends AppCompatActivity
                 String end = data.getStringExtra("end");
                 String cookingTime = data.getStringExtra("cookingTime");
 
-                Log.e("ВСЕ ХОРОШО", "response code МЫ ТУТ Sub="+subcat+"&PriceFrom="+start+"&PriceTo="+end+"&CookingTime="+cookingTime+"&Str=" + searchStr);
 
                 final Call<DishesList> dishesListCall = spaghetAPI.findDishes(subcat, start, end, cookingTime, searchStr);
                 final DishesList dishes = new DishesList();
