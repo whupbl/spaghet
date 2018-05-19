@@ -5,6 +5,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface SpaghetAPI {
+
+    String serverURL = "http://a66d77a3.ngrok.io";
+
     @GET("/spaghet/cat")
     Call<CategoriesList> getCategories();
 
@@ -24,5 +27,10 @@ public interface SpaghetAPI {
     @GET("/spaghet/history/get/client")
     Call<ClientHistory> getHistory (@Query("ID") String userID);
 
-}
+    @GET("/spaghet/auth/client")
+    Call<UserList> authClient (@Query("login") String login, @Query("pass") String password);
 
+    @GET("/spaghet/auth/cook")
+    Call<UserList> authCook (@Query("login") String login, @Query("pass") String password);
+
+}

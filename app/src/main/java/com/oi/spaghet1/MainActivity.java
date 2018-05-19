@@ -61,9 +61,13 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         changeToolbarFont(toolbar, this);
+
+        UserID = getIntent().getStringExtra("id");
+        UserName = getIntent().getStringExtra("name");
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
@@ -92,7 +96,7 @@ public class MainActivity extends AppCompatActivity
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://dc887f3c.ngrok.io")
+                .baseUrl(SpaghetAPI.serverURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
