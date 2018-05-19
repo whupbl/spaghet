@@ -35,7 +35,7 @@ public class CookActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://dc887f3c.ngrok.io")
+                .baseUrl(SpaghetAPI.serverURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
