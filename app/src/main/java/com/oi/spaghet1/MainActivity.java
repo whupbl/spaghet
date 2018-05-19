@@ -8,7 +8,6 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -27,9 +26,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 
 
 import org.json.JSONException;
@@ -43,7 +44,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-// Главная активность, которая с картой
+
+// Главная активность Клиента
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity
     private String UserID = "1";
     private String UserName = "Иванов";
 
-    // Метод, срабатывающий при создании активности вот этой вот главной
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +75,6 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(fabListener);
 
 
-
         // Менюшка слева
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -83,7 +84,8 @@ public class MainActivity extends AppCompatActivity
 
         //бИРЮЗОВАЯ ШАПКА СВЕРХУ
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);View headerView = navigationView.getHeaderView(0);
+        navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
         TextView navUsername = (TextView) headerView.findViewById(R.id.username);
         navUsername.setText(UserName);
 
@@ -100,13 +102,11 @@ public class MainActivity extends AppCompatActivity
 
         spaghetAPI = retrofit.create(SpaghetAPI.class);
 
-        Log.i("ГЛАВНАЯ АКТИВНОСТЬ", "ЗАГРУЗИЛАСЬ");
     }
 
     private View.OnClickListener fabListener = new View.OnClickListener() {
         public void onClick(View v) {
-            Log.i("НАЖАЛИ КНОПКУ", "РОЗОВУЮ");
-
+            categories.clearAllCategories();
             final Call<CategoriesList> cats = spaghetAPI.getCategories();
             final CategoriesList cl = new CategoriesList();
 
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity
                         for (int i = 0; i < cl.getChildren().size(); i++) {
                             categories.addSubcatToCat(cl.getChildren().get(i).getCatName(), cl.getChildren().get(i).getSubName());
                         }
-                        Intent intent = new Intent(MainActivity.this, settings.class);
+                        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                         startActivityForResult(intent, 1);
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -163,10 +163,13 @@ public class MainActivity extends AppCompatActivity
         mMap = googleMap;
         LatLng krsk = new LatLng(56.009390, 92.853491);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(krsk, 10));
+
+        mMap.clear();
         if (points != null) {
-            Log.e("ВСЕ ХОРОШО", "response code РИСУЕМ");
-            for (Dish p : points) {
-                LatLng pos = new LatLng(p.getLat(), p.getLng());
+            for (int i = 0; i < points.size(); i++) {
+                Dish p = points.get(i);
+                LatLng pos = new LatLng(p.getLat(), p.getLng() + i * 0.00005);
+
                 JSONObject j = new JSONObject();
                 try {
                     j.put("ID", p.getID());
@@ -196,14 +199,20 @@ public class MainActivity extends AppCompatActivity
         mMap.addMarker(new MarkerOptions()
                 .title("Красноярск")
                 .snippet("Ня-ня-ня")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 .position(krsk)).setTag(j);
 
 
         mMap.setOnMarkerClickListener(this);
+
     }
 
 
+
     public boolean onMarkerClick(final Marker marker) {
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 20));
+
         AlertDialog.Builder ad;
         Context context = MainActivity.this;
         String title = marker.getTitle();
@@ -274,7 +283,6 @@ public class MainActivity extends AppCompatActivity
                 String end = data.getStringExtra("end");
                 String cookingTime = data.getStringExtra("cookingTime");
 
-                Log.e("ВСЕ ХОРОШО", "response code МЫ ТУТ Sub="+subcat+"&PriceFrom="+start+"&PriceTo="+end+"&CookingTime="+cookingTime+"&Str=" + searchStr);
 
                 final Call<DishesList> dishesListCall = spaghetAPI.findDishes(subcat, start, end, cookingTime, searchStr);
                 final DishesList dishes = new DishesList();
@@ -288,6 +296,7 @@ public class MainActivity extends AppCompatActivity
                             Log.i("PM", String.valueOf(dishes.getChildren().size()));
                             if (dishes.getChildren().size() != 0) {
                                 points = dishes.getChildren();
+                                mMap.clear();
                                 plotPointsOnMap();
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -319,7 +328,6 @@ public class MainActivity extends AppCompatActivity
                                             });
                             AlertDialog alert = builder.create();
                             alert.show();
-                            Log.e("RESULT", "response code " + response.code());
                         }
                     }
 
@@ -397,7 +405,6 @@ public class MainActivity extends AppCompatActivity
 
 
     public void plotPointsOnMap() {
-        Log.e("MAPMAPMAPAMP GOOGLE", "ВСЕ ХОРОШО");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -419,5 +426,9 @@ public class MainActivity extends AppCompatActivity
     public static void applyFont(TextView tv, Activity context) {
         tv.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Playlist Script.otf"));
     }
+
+
+
+
 
 }
