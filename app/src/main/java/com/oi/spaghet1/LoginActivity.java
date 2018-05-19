@@ -19,13 +19,16 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -66,6 +69,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private Retrofit retrofit;
     private SpaghetAPI spaghetAPI;
+    private String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,23 +82,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView = (EditText) findViewById(R.id.password);
 
         retrofit = new Retrofit.Builder()
-                //.baseUrl("http://6e789bbf.ngrok.io")
-                .baseUrl("http://6c870059.ngrok.io")
+                .baseUrl(spaghetAPI.serverURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         spaghetAPI = retrofit.create(SpaghetAPI.class);
-
-        /*mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin(null);
-                    return true;
-                }
-                return false;
-            }
-        });*/
 
         Button btn_clientSign = (Button) findViewById(R.id.login_sign_in_button_client);
         btn_clientSign.setOnClickListener(new OnClickListener() {
@@ -114,6 +106,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        // Передача параметров
+        message = getIntent().getStringExtra("message");
+        // Вывод сообщения на экран, если оно есть
+        if (message != null) {
+            Toast toast = Toast.makeText(this, message,Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP, 0,200);
+            toast.show();
+        }
     }
 
     private void populateAutoComplete() {
@@ -182,35 +183,39 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        /*if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (TextUtils.isEmpty(login)) {
+            mLoginView.setError(getString(R.string.error_invalid_login));
+            focusView = mLoginView;
+            cancel = true;
+        } else if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
-        }*/
+        }
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
         } else {
-            //login = "IvanovI";
-            //password = "12345";
-            //login = "N5954";
-            //password = "M2238";
-            //login = "XXX";
-            //password = "XXXXXX";
-
             if (userType.equals("client")) {
-                final Call<UserList> authClients = spaghetAPI.authClient(login, password);
+                final Call<UserList> authClient = spaghetAPI.authClient(login, password);
                 final UserList users = new UserList();
                 final User user = new User();
-                authClients.enqueue(new Callback<UserList>() {
+                authClient.enqueue(new Callback<UserList>() {
                     @Override
                     public void onResponse(Call<UserList> call, Response<UserList> response) {
                         if (response.isSuccessful()) {
                             users.setChildren(response.body().getChildren());
                             if (users.getChildren().size() == 0){
                                 Intent intent = getIntent();
+                                intent.putExtra("message", "Вы ввели неверный логин или пароль. Попробуйте снова.");
+                                finish();
+                                startActivity(intent);
+                                return;
+                            } else if (users.getChildren().get(0).getId() == "") {
+                                Intent intent = getIntent();
+                                intent.putExtra("message", "Вы зарегистрированы в системе, однако пытаетесь войти не в свой раздел");
                                 finish();
                                 startActivity(intent);
                                 return;
@@ -219,21 +224,77 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             user.setName(users.getChildren().get(0).getName());
                             Log.i("AUTH", user.getId());
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.putExtra("u", user.getId());
+                            intent.putExtra("id", user.getId());
+                            intent.putExtra("name", user.getName());
                             startActivity(intent);
                             return;
                         } else {
-                            //auth.setId(String.valueOf(response.code()));
+                            Intent intent = getIntent();
+                            intent.putExtra("message", String.valueOf(response.code()));
+                            finish();
+                            startActivity(intent);
+                            return;
                         }
                     }
 
                     @Override
                     public void onFailure(Call<UserList> call, Throwable t) {
+                        Intent intent = getIntent();
+                        intent.putExtra("message", t.toString());
+                        finish();
+                        startActivity(intent);
                         return;
                     }
                 });
             } else if (userType.equals("cook")) {
-                // Запрос на сверку данных повара
+                final Call<UserList> authCook = spaghetAPI.authCook(login, password);
+                final UserList users = new UserList();
+                final User user = new User();
+                authCook.enqueue(new Callback<UserList>() {
+                    @Override
+                    public void onResponse(Call<UserList> call, Response<UserList> response) {
+                        if (response.isSuccessful()) {
+                            users.setChildren(response.body().getChildren());
+                            if (users.getChildren().size() == 0){
+                                Intent intent = getIntent();
+                                intent.putExtra("message", "Вы ввели неверный логин или пароль. Попробуйте снова.");
+                                finish();
+                                startActivity(intent);
+                                return;
+                            }
+                            else if (users.getChildren().get(0).getId() == "") {
+                                Intent intent = getIntent();
+                                intent.putExtra("message", "Вы зарегистрированы в системе, однако пытаетесь войти не в свой раздел");
+                                finish();
+                                startActivity(intent);
+                                return;
+                            }
+                            user.setId(users.getChildren().get(0).getId());
+                            user.setName(users.getChildren().get(0).getName());
+                            Log.i("AUTH", user.getId());
+                            Intent intent = new Intent(LoginActivity.this, CookActivity.class);
+                            intent.putExtra("id", user.getId());
+                            intent.putExtra("name", user.getName());
+                            startActivity(intent);
+                            return;
+                        } else {
+                            Intent intent = getIntent();
+                            intent.putExtra("message", String.valueOf(response.code()));
+                            finish();
+                            startActivity(intent);
+                            return;
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserList> call, Throwable t) {
+                        Intent intent = getIntent();
+                        intent.putExtra("message", t.toString());
+                        finish();
+                        startActivity(intent);
+                        return;
+                    }
+                });
             }
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
@@ -246,11 +307,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return email.contains("@");
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
     }
 
     /**
