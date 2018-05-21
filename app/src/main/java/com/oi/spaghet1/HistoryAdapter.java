@@ -60,14 +60,20 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         final History post = posts.get(position);
 
         holder.site.setText("Оценить");
-        String text = "Дата: " + post.getTimeStart() + "\n" +
-                "Блюдо: " + post.getDishName() + "\n" + post.getDescription() +
-                "\nПовар: " + post.getCookName() + "\nТел.: " + post.getPhoneNumber();
+        holder.dishName.setText(post.getDishName());
+        holder.cook.setText(post.getCookName());
+        holder.phoneNumber.setText(post.getPhoneNumber());
+        holder.description.setText(post.getDescription() + " Очень очень вкусная еда с разными специями и добавками, Вам точно придется по вкусу");
+        holder.date.setText(post.getTimeStart());
+
         if (!post.getClientToCook().equals(0)) {
-            text = text + "\nОценка: " + post.getClientToCook();
+            holder.estimate.setText(post.getClientToCook().toString());
             holder.site.setVisibility(View.INVISIBLE);
         }
-        holder.post.setText(text);
+        else {
+            holder.estimate.setVisibility(View.INVISIBLE);
+            holder.estimateLabel.setVisibility(View.INVISIBLE);
+        }
 
         holder.site.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -86,14 +92,32 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView post;
         Button site;
+        TextView dishName;
+        TextView description;
+        TextView phoneNumber;
+        TextView cook;
+        TextView estimate;
+        TextView date;
+        TextView estimateLabel;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            post = (TextView) itemView.findViewById(R.id.historyitem_dish);
-            site = (Button) itemView.findViewById(R.id.button_assess);
+            site =(Button) itemView.findViewById(R.id.button_assess);
 
+            dishName =(TextView) itemView.findViewById(R.id.historyitem_dish);
+
+            estimate =(TextView) itemView.findViewById(R.id.historyItem_estimate);
+
+            description =(TextView) itemView.findViewById(R.id.historyItem_description);
+
+            phoneNumber =(TextView) itemView.findViewById(R.id.historyItem_phone);
+
+            date =(TextView) itemView.findViewById(R.id.historyItem_date);
+
+            cook =(TextView) itemView.findViewById(R.id.historyItem_cook);
+
+            estimateLabel = (TextView) itemView.findViewById(R.id.historyItem_estimateLabel);
 
         }
     }
