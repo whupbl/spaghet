@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,7 +55,7 @@ public class CookActivity extends AppCompatActivity {
                             Log.i("PM", String.valueOf(cl.getChildren().size()));
                             Log.i("PM", String.valueOf(cl.getChildren().get(0).getCatName()));
                             for (int i = 0; i < cl.getChildren().size(); i++) {
-                                categories.addSubcatToCat(cl.getChildren().get(i).getCatName(), cl.getChildren().get(i).getSubName());
+                                Categories.addSubcatToCat(cl.getChildren().get(i).getCatName(), cl.getChildren().get(i).getSubName());
                             }
                             Intent intent = new Intent(CookActivity.this, NewDishActivity.class);
                             startActivityForResult(intent, 1);

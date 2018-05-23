@@ -5,21 +5,17 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_favourites"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Избранное" />
-        <item
             android:id="@+id/nav_history"
             android:icon="@drawable/ic_menu_gallery"
             android:title="История" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Настройки" />
+            android:title="О программе" />
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Справка" />
+            android:title="Выйти" />
     </group>
 
 </menu>

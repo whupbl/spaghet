@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class categories {
+public class Categories {
     static public  Map<String, Collection<String>> map = new HashMap<String, Collection<String>>();
     static public void addSubcatToCat(String cat, String sub){
         Collection<String> values = map.get(cat);

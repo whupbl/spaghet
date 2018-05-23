@@ -30,7 +30,7 @@ public class NewDishActivity extends AppCompatActivity {
 
         Spinner s = (Spinner) findViewById(R.id.spinner7);
 
-        String[] arraySpinner = categories.getMap().keySet().toArray(new String[categories.getMap().keySet().size()]);
+        String[] arraySpinner = Categories.getMap().keySet().toArray(new String[Categories.getMap().keySet().size()]);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, arraySpinner);
 
@@ -43,7 +43,7 @@ public class NewDishActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 Spinner s = (Spinner) findViewById(R.id.spinner7);
                 String cat = s.getSelectedItem().toString();
-                String[] arraySpinner = categories.getSubcat(cat).toArray(new String[categories.getSubcat(cat).size()]);
+                String[] arraySpinner = Categories.getSubcat(cat).toArray(new String[Categories.getSubcat(cat).size()]);
                 s = (Spinner) findViewById(R.id.spinner8);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(NewDishActivity.this,
                         android.R.layout.simple_spinner_item, arraySpinner);

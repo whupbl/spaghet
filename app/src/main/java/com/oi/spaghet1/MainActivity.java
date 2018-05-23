@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity
 
     private View.OnClickListener fabListener = new View.OnClickListener() {
         public void onClick(View v) {
-            categories.clearAllCategories();
+            Categories.clearAllCategories();
             final Call<CategoriesList> cats = spaghetAPI.getCategories();
             final CategoriesList cl = new CategoriesList();
 
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity
                         Log.i("PM", String.valueOf(cl.getChildren().size()));
                         Log.i("PM", String.valueOf(cl.getChildren().get(0).getCatName()));
                         for (int i = 0; i < cl.getChildren().size(); i++) {
-                            categories.addSubcatToCat(cl.getChildren().get(i).getCatName(), cl.getChildren().get(i).getSubName());
+                            Categories.addSubcatToCat(cl.getChildren().get(i).getCatName(), cl.getChildren().get(i).getSubName());
                         }
                         Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                         startActivityForResult(intent, 1);
@@ -383,9 +383,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_favourites) {
-            // Handle the camera action
-        } else if (id == R.id.nav_history) {
+        if (id == R.id.nav_history) {
             Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
             intent.putExtra("UserID", String.valueOf(UserID));
             Log.i("\n\nИСТОРИЯ: ", "main -> history");
@@ -393,9 +391,14 @@ public class MainActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_settings) {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Разрабатывается в учебных целях :)", Toast.LENGTH_SHORT);
+            toast.show();
 
         } else if (id == R.id.nav_help) {
-
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Выхода нет", Toast.LENGTH_SHORT);
+            toast.show();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
