@@ -25,28 +25,33 @@
             android:id="@+id/textView20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center"
             android:text="Категория" />
 
         <Spinner
             android:id="@+id/spinner7"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" />
 
         <TextView
             android:id="@+id/textView21"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center"
             android:text="Подкатегория" />
 
         <Spinner
             android:id="@+id/spinner8"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"/>
 
         <TextView
             android:id="@+id/textView22"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:text="Цена:" />
 
         <EditText
@@ -55,12 +60,14 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
+            android:gravity="center_horizontal"
             android:text="100" />
 
         <TextView
             android:id="@+id/textView24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:text="Максимальное время готовки (мин)" />
 
         <EditText
@@ -69,16 +76,18 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
+            android:gravity="center_horizontal"
             android:text="240" />
 
         <TextView
             android:id="@+id/textView25"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:text="Описание:" />
 
         <EditText
-            android:id="@+id/description"
+            android:id="@+id/historyItem_description"
             android:layout_width="match_parent"
             android:layout_height="79dp"
             android:ems="10"
@@ -88,6 +97,7 @@
             android:id="@+id/createDish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center"
             android:text="Создать" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
