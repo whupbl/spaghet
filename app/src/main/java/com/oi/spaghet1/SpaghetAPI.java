@@ -6,7 +6,7 @@ import retrofit2.http.Query;
 
 public interface SpaghetAPI {
 
-    String serverURL = "http://c06c7d5f.ngrok.io";
+    String serverURL = "http://cc97b93d.ngrok.io";
 
     @GET("/spaghet/cat")
     Call<CategoriesList> getCategories();

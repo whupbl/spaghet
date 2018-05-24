@@ -1,0 +1,1087 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1 (Build 792U)" ts="2018-05-17 10:14:10">
+<Class name="SPAGHET.Category">
+<Description>
+Категория</Description>
+<SqlTableName>Category</SqlTableName>
+<Super>%Persistent,%Populate</Super>
+<TimeChanged>64785,31134.304804</TimeChanged>
+<TimeCreated>64773,62657.220459</TimeCreated>
+
+<Property name="Name">
+<Description>
+Название</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="NameIndex">
+<Properties>Name</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SPAGHET.CategoryD</DataLocation>
+<DefaultData>CategoryDefaultData</DefaultData>
+<IdLocation>^SPAGHET.CategoryD</IdLocation>
+<IndexLocation>^SPAGHET.CategoryI</IndexLocation>
+<StreamLocation>^SPAGHET.CategoryS</StreamLocation>
+<ExtentSize>4</ExtentSize>
+<Data name="CategoryDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="Name">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>14.25</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="NameIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="SPAGHET.Client">
+<Description>
+Клиент</Description>
+<SqlTableName>Client</SqlTableName>
+<Super>%Persistent,%Populate</Super>
+<TimeChanged>64778,50127.194059</TimeChanged>
+<TimeCreated>64773,55937.539939</TimeCreated>
+
+<Property name="UserID">
+<Description>
+Пользователь</Description>
+<Type>SPAGHET.User</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="UserIDIndex">
+<Properties>UserID</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="Rating">
+<Description>
+Рейтинг</Description>
+<Type>%Integer</Type>
+<Parameter name="MINVAL" value="0"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SPAGHET.ClientD</DataLocation>
+<DefaultData>ClientDefaultData</DefaultData>
+<IdLocation>^SPAGHET.ClientD</IdLocation>
+<IndexLocation>^SPAGHET.ClientI</IndexLocation>
+<StreamLocation>^SPAGHET.ClientS</StreamLocation>
+<ExtentSize>6</ExtentSize>
+<Data name="ClientDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>UserID</Value>
+</Value>
+<Value name="3">
+<Value>Rating</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="Rating">
+<Selectivity>16.6667%</Selectivity>
+<AverageFieldSize>8.67</AverageFieldSize>
+</Property>
+<Property name="UserID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="UserIDIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="SPAGHET.ClientCookRating">
+<Description>
+Оценка, поставленная клиентом повару</Description>
+<Super>%Persistent,%Populate</Super>
+<TimeChanged>64785,30562.806642</TimeChanged>
+<TimeCreated>64773,64099.764087</TimeCreated>
+
+<Property name="ClientID">
+<Type>%Integer</Type>
+<Required>1</Required>
+<Parameter name="MINVAL" value="1"/>
+</Property>
+
+<Index name="ClientIDIndex">
+<Properties>ClientID</Properties>
+</Index>
+
+<ForeignKey name="ClientIDFKey">
+<Properties>ClientID</Properties>
+<ReferencedClass>SPAGHET.Client</ReferencedClass>
+</ForeignKey>
+
+<Property name="CookID">
+<Type>%Integer</Type>
+<Required>1</Required>
+<Parameter name="MINVAL" value="1"/>
+</Property>
+
+<Index name="CookIDIndex">
+<Properties>CookID</Properties>
+</Index>
+
+<ForeignKey name="CookIDFKey">
+<Properties>CookID</Properties>
+<ReferencedClass>SPAGHET.Cook</ReferencedClass>
+</ForeignKey>
+
+<Property name="Value">
+<Description>
+Значение оценки</Description>
+<Type>%Integer</Type>
+<Parameter name="MINVAL" value="0"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SPAGHET.ClientCookRatingD</DataLocation>
+<DefaultData>ClientCookRatingDefaultData</DefaultData>
+<IdLocation>^SPAGHET.ClientCookRatingD</IdLocation>
+<IndexLocation>^SPAGHET.ClientCookRatingI</IndexLocation>
+<StreamLocation>^SPAGHET.ClientCookRatingS</StreamLocation>
+<Data name="ClientCookRatingDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>ClientID</Value>
+</Value>
+<Value name="3">
+<Value>CookID</Value>
+</Value>
+<Value name="4">
+<Value>Value</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="SPAGHET.Cook">
+<Description>
+Повар</Description>
+<SqlTableName>Cook</SqlTableName>
+<Super>%Persistent,%Populate</Super>
+<TimeChanged>64785,31070.328829</TimeChanged>
+<TimeCreated>64773,62141.155238</TimeCreated>
+
+<Property name="UserID">
+<Type>SPAGHET.User</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="UserIDIndex">
+<Properties>UserID</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="CookStatus">
+<Type>%Boolean</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Latitude">
+<Description>
+Местоположение</Description>
+<Type>%Double</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Longitude">
+<Type>%Double</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Rating">
+<Description>
+Рейтинг</Description>
+<Type>%Double</Type>
+<Parameter name="MINVAL" value="0"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SPAGHET.CookD</DataLocation>
+<DefaultData>CookDefaultData</DefaultData>
+<IdLocation>^SPAGHET.CookD</IdLocation>
+<IndexLocation>^SPAGHET.CookI</IndexLocation>
+<StreamLocation>^SPAGHET.CookS</StreamLocation>
+<ExtentSize>6</ExtentSize>
+<Data name="CookDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>UserID</Value>
+</Value>
+<Value name="3">
+<Value>CookStatusID</Value>
+</Value>
+<Value name="4">
+<Value>Latitude</Value>
+</Value>
+<Value name="5">
+<Value>Longitude</Value>
+</Value>
+<Value name="6">
+<Value>Rating</Value>
+</Value>
+<Value name="7">
+<Value>CookStatus</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.17</AverageFieldSize>
+</Property>
+<Property name="CookStatus">
+<Selectivity>50.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="CookStatusID">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="Latitude">
+<Selectivity>16.6667%</Selectivity>
+<AverageFieldSize>4</AverageFieldSize>
+</Property>
+<Property name="Longitude">
+<Selectivity>16.6667%</Selectivity>
+<AverageFieldSize>3.83</AverageFieldSize>
+</Property>
+<Property name="Rating">
+<Selectivity>16.6667%</Selectivity>
+<AverageFieldSize>3.83</AverageFieldSize>
+</Property>
+<Property name="UserID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.33</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="UserIDIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="SPAGHET.CookClientRating">
+<Description>
+Оценка, поставленная поваром клиенту</Description>
+<Super>%Persistent</Super>
+<TimeChanged>64773,64402.588945</TimeChanged>
+<TimeCreated>64773,64402.227706</TimeCreated>
+
+<Property name="CookID">
+<Type>%Integer</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="CookIDIndex">
+<Properties>CookID</Properties>
+</Index>
+
+<ForeignKey name="CookIDFKey">
+<OnUpdate>cascade</OnUpdate>
+<Properties>CookID</Properties>
+<ReferencedClass>SPAGHET.Cook</ReferencedClass>
+</ForeignKey>
+
+<Property name="ClientID">
+<Type>%Integer</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="ClientIDIndex">
+<Properties>ClientID</Properties>
+</Index>
+
+<ForeignKey name="ClientIDFKey">
+<OnUpdate>cascade</OnUpdate>
+<Properties>ClientID</Properties>
+<ReferencedClass>SPAGHET.Client</ReferencedClass>
+</ForeignKey>
+
+<Property name="Value">
+<Description>
+Значение</Description>
+<Type>%Integer</Type>
+<Parameter name="MINVAL" value="0"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SPAGHET.CookClientRatingD</DataLocation>
+<DefaultData>CookClientRatingDefaultData</DefaultData>
+<IdLocation>^SPAGHET.CookClientRatingD</IdLocation>
+<IndexLocation>^SPAGHET.CookClientRatingI</IndexLocation>
+<StreamLocation>^SPAGHET.CookClientRatingS</StreamLocation>
+<Data name="CookClientRatingDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>CookID</Value>
+</Value>
+<Value name="3">
+<Value>ClientID</Value>
+</Value>
+<Value name="4">
+<Value>Value</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="SPAGHET.CookStatus">
+<Description>
+Статус повара</Description>
+<SqlTableName>CookStatus</SqlTableName>
+<Super>%Persistent,%Populate</Super>
+<TimeChanged>64785,30563.339527</TimeChanged>
+<TimeCreated>64773,61990.066338</TimeCreated>
+
+<Property name="Name">
+<Description>
+Название</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="NameIndex">
+<Properties>Name</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SPAGHET.CookStatusD</DataLocation>
+<DefaultData>CookStatusDefaultData</DefaultData>
+<IdLocation>^SPAGHET.CookStatusD</IdLocation>
+<IndexLocation>^SPAGHET.CookStatusI</IndexLocation>
+<StreamLocation>^SPAGHET.CookStatusS</StreamLocation>
+<Data name="CookStatusDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="SPAGHET.Dish">
+<Description>
+Блюдо</Description>
+<SqlTableName>Dish</SqlTableName>
+<Super>%Persistent,%Populate</Super>
+<TimeChanged>64778,50141.560619</TimeChanged>
+<TimeCreated>64773,63175.684653</TimeCreated>
+
+<Property name="Name">
+<Description>
+Название</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Description">
+<Description>
+Описание</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="Price">
+<Description>
+Стоимость</Description>
+<Type>%Double</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="SubcategoryID">
+<Type>SPAGHET.Subcategory</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="CookID">
+<Type>SPAGHET.Cook</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="TimeToCook">
+<Description>
+Время  готовки</Description>
+<Type>%Integer</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SPAGHET.DishD</DataLocation>
+<DefaultData>DishDefaultData</DefaultData>
+<IdLocation>^SPAGHET.DishD</IdLocation>
+<IndexLocation>^SPAGHET.DishI</IndexLocation>
+<StreamLocation>^SPAGHET.DishS</StreamLocation>
+<ExtentSize>40</ExtentSize>
+<Data name="DishDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>Description</Value>
+</Value>
+<Value name="4">
+<Value>Price</Value>
+</Value>
+<Value name="5">
+<Value>SubcategoryID</Value>
+</Value>
+<Value name="6">
+<Value>CookID</Value>
+</Value>
+<Value name="7">
+<Value>TimeToCook</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.78</AverageFieldSize>
+</Property>
+<Property name="CookID">
+<Selectivity>14.2857%</Selectivity>
+<AverageFieldSize>1.13</AverageFieldSize>
+</Property>
+<Property name="Description">
+<Selectivity>2.5000%</Selectivity>
+<AverageFieldSize>4.88</AverageFieldSize>
+</Property>
+<Property name="Name">
+<Selectivity>2.5000%</Selectivity>
+<AverageFieldSize>16.28</AverageFieldSize>
+</Property>
+<Property name="Price">
+<Selectivity>2.5000%</Selectivity>
+<AverageFieldSize>3.85</AverageFieldSize>
+</Property>
+<Property name="SubcategoryID">
+<Selectivity>11.1111%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="TimeToCook">
+<Selectivity>2.5000%</Selectivity>
+<AverageFieldSize>8.88</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="SPAGHET.FavoriteDishes">
+<Super>%Persistent,%Populate</Super>
+<TimeChanged>64774,3682.080456</TimeChanged>
+<TimeCreated>64774,3681.874635</TimeCreated>
+
+<Property name="Client">
+<Type>SPAGHET.Client</Type>
+</Property>
+
+<Property name="Dish">
+<Type>SPAGHET.Dish</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SPAGHET.FavoriteDishesD</DataLocation>
+<DefaultData>FavoriteDishesDefaultData</DefaultData>
+<IdLocation>^SPAGHET.FavoriteDishesD</IdLocation>
+<IndexLocation>^SPAGHET.FavoriteDishesI</IndexLocation>
+<StreamLocation>^SPAGHET.FavoriteDishesS</StreamLocation>
+<Data name="FavoriteDishesDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Client</Value>
+</Value>
+<Value name="3">
+<Value>Dish</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="SPAGHET.FavouriteCook">
+<Description>
+Любимый повар клиента</Description>
+<Super>%Persistent</Super>
+<TimeChanged>64773,64869.301076</TimeChanged>
+<TimeCreated>64773,64868.956041</TimeCreated>
+
+<Property name="ClientID">
+<Type>%Integer</Type>
+<Required>1</Required>
+<Parameter name="MINVAL" value="1"/>
+</Property>
+
+<Index name="ClientIDIndex">
+<Properties>ClientID</Properties>
+</Index>
+
+<ForeignKey name="ClientIDFKey">
+<OnUpdate>cascade</OnUpdate>
+<Properties>ClientID</Properties>
+<ReferencedClass>SPAGHET.Client</ReferencedClass>
+</ForeignKey>
+
+<Property name="CookID">
+<Type>%Integer</Type>
+<Required>1</Required>
+<Parameter name="MINVAL" value="1"/>
+</Property>
+
+<Index name="CookIDIndex">
+<Properties>CookID</Properties>
+</Index>
+
+<ForeignKey name="CookIDFKey">
+<OnUpdate>cascade</OnUpdate>
+<Properties>CookID</Properties>
+<ReferencedClass>SPAGHET.Cook</ReferencedClass>
+</ForeignKey>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SPAGHET.FavouriteCookD</DataLocation>
+<DefaultData>FavouriteCookDefaultData</DefaultData>
+<IdLocation>^SPAGHET.FavouriteCookD</IdLocation>
+<IndexLocation>^SPAGHET.FavouriteCookI</IndexLocation>
+<StreamLocation>^SPAGHET.FavouriteCookS</StreamLocation>
+<Data name="FavouriteCookDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>ClientID</Value>
+</Value>
+<Value name="3">
+<Value>CookID</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="SPAGHET.Order">
+<Description>
+Заказ</Description>
+<SqlTableName>Order</SqlTableName>
+<Super>%Persistent,%Populate</Super>
+<TimeChanged>64774,63805.510018</TimeChanged>
+<TimeCreated>64773,63796.554531</TimeCreated>
+
+<Property name="DishID">
+<Type>SPAGHET.Dish</Type>
+</Property>
+
+<Property name="ClientID">
+<Type>SPAGHET.Client</Type>
+</Property>
+
+<Property name="OrderStatus">
+<Description>
+Создан или отменен</Description>
+<Type>%Integer</Type>
+</Property>
+
+<Property name="TimeStart">
+<Description>
+Дата и время возникновения заказа</Description>
+<Type>%TimeStamp</Type>
+</Property>
+
+<Property name="CookToClient">
+<Description>
+Оценка повара клиентом</Description>
+<Type>%Integer</Type>
+</Property>
+
+<Property name="ClientToCook">
+<Description>
+Оценка клиента поваром</Description>
+<Type>%Integer</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SPAGHET.OrderD</DataLocation>
+<DefaultData>OrderDefaultData</DefaultData>
+<IdLocation>^SPAGHET.OrderD</IdLocation>
+<IndexLocation>^SPAGHET.OrderI</IndexLocation>
+<StreamLocation>^SPAGHET.OrderS</StreamLocation>
+<ExtentSize>40</ExtentSize>
+<Data name="OrderDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>DishID</Value>
+</Value>
+<Value name="3">
+<Value>ClientID</Value>
+</Value>
+<Value name="4">
+<Value>OrderStatusID</Value>
+</Value>
+<Value name="5">
+<Value>TimeStart</Value>
+</Value>
+<Value name="6">
+<Value>TimeUpdate</Value>
+</Value>
+<Value name="7">
+<Value>CookToClient</Value>
+</Value>
+<Value name="8">
+<Value>ClientToCook</Value>
+</Value>
+<Value name="9">
+<Value>OrderStatus</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.78</AverageFieldSize>
+</Property>
+<Property name="ClientID">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>1.05</AverageFieldSize>
+</Property>
+<Property name="ClientToCook">
+<Selectivity>2.5000%</Selectivity>
+<AverageFieldSize>8.88</AverageFieldSize>
+</Property>
+<Property name="CookToClient">
+<Selectivity>2.5000%</Selectivity>
+<AverageFieldSize>8.93</AverageFieldSize>
+</Property>
+<Property name="DishID">
+<Selectivity>7.1429%</Selectivity>
+<AverageFieldSize>1.35</AverageFieldSize>
+</Property>
+<Property name="OrderStatusID">
+<Selectivity>25.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="TimeStart">
+<Selectivity>2.5000%</Selectivity>
+<AverageFieldSize>19</AverageFieldSize>
+</Property>
+<Property name="TimeUpdate">
+<Selectivity>2.5000%</Selectivity>
+<AverageFieldSize>19</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="SPAGHET.OrderDish">
+<Super>%Persistent</Super>
+<TimeChanged>64773,63800.709209</TimeChanged>
+<TimeCreated>64773,63791.327315</TimeCreated>
+
+<Property name="OrderID">
+<Type>%Integer</Type>
+<Required>1</Required>
+<Parameter name="MINVAL" value="1"/>
+</Property>
+
+<Index name="OrderIDIndex">
+<Properties>OrderID</Properties>
+</Index>
+
+<ForeignKey name="OrderIDFKey">
+<Properties>OrderID</Properties>
+<ReferencedClass>SPAGHET.Order</ReferencedClass>
+</ForeignKey>
+
+<Property name="DishID">
+<Type>%Integer</Type>
+<Required>1</Required>
+<Parameter name="MINVAL" value="1"/>
+</Property>
+
+<Index name="DishIDIndex">
+<Properties>DishID</Properties>
+</Index>
+
+<ForeignKey name="DishIDFKey">
+<Properties>DishID</Properties>
+<ReferencedClass>SPAGHET.Dish</ReferencedClass>
+</ForeignKey>
+
+<Property name="Amount">
+<Description>
+Количество</Description>
+<Type>%Integer</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SPAGHET.OrderDishD</DataLocation>
+<DefaultData>OrderDishDefaultData</DefaultData>
+<IdLocation>^SPAGHET.OrderDishD</IdLocation>
+<IndexLocation>^SPAGHET.OrderDishI</IndexLocation>
+<StreamLocation>^SPAGHET.OrderDishS</StreamLocation>
+<Data name="OrderDishDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>OrderID</Value>
+</Value>
+<Value name="3">
+<Value>DishID</Value>
+</Value>
+<Value name="4">
+<Value>Amount</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="SPAGHET.OrderStatus">
+<Description>
+Статус заказа</Description>
+<SqlTableName>OrderStatus</SqlTableName>
+<Super>%Persistent,%Populate</Super>
+<TimeChanged>64785,30563.995451</TimeChanged>
+<TimeCreated>64773,63260.966705</TimeCreated>
+
+<Property name="Name">
+<Description>
+Название</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="NameIndex">
+<Properties>Name</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SPAGHET.OrderStatusD</DataLocation>
+<DefaultData>OrderStatusDefaultData</DefaultData>
+<IdLocation>^SPAGHET.OrderStatusD</IdLocation>
+<IndexLocation>^SPAGHET.OrderStatusI</IndexLocation>
+<StreamLocation>^SPAGHET.OrderStatusS</StreamLocation>
+<Data name="OrderStatusDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="SPAGHET.Subcategory">
+<Description>
+Подкатегория</Description>
+<SqlTableName>Subcategory</SqlTableName>
+<Super>%Persistent,%Populate</Super>
+<TimeChanged>64785,31140.896689</TimeChanged>
+<TimeCreated>64773,62777.593393</TimeCreated>
+
+<Property name="Name">
+<Description>
+Название</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="NameIndex">
+<Properties>Name</Properties>
+<Unique>1</Unique>
+</Index>
+
+<Property name="CategoryID">
+<Type>SPAGHET.Category</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SPAGHET.SubcategoryD</DataLocation>
+<DefaultData>SubcategoryDefaultData</DefaultData>
+<IdLocation>^SPAGHET.SubcategoryD</IdLocation>
+<IndexLocation>^SPAGHET.SubcategoryI</IndexLocation>
+<StreamLocation>^SPAGHET.SubcategoryS</StreamLocation>
+<ExtentSize>4</ExtentSize>
+<Data name="SubcategoryDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>CategoryID</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="CategoryID">
+<Selectivity>50.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="Name">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>15.75</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+<SQLMap name="NameIndex">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Class name="SPAGHET.User">
+<Description>
+Пользователь</Description>
+<SqlTableName>User</SqlTableName>
+<Super>%Persistent,%Populate</Super>
+<TimeChanged>64785,31043.717586</TimeChanged>
+<TimeCreated>64773,54127.080576</TimeCreated>
+
+<Property name="Login">
+<Description>
+Логин</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Password">
+<Description>
+Пароль</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Name">
+<Description>
+Имя</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="RegistrationDate">
+<Description>
+Дата регистрации</Description>
+<Type>%Date</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="PhoneNumber">
+<Description>
+Номер телефона</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="Address">
+<Description>
+Адрес</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="Email">
+<Description>
+Адрес электронной почты</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^SPAGHET.UserD</DataLocation>
+<DefaultData>UserDefaultData</DefaultData>
+<IdLocation>^SPAGHET.UserD</IdLocation>
+<IndexLocation>^SPAGHET.UserI</IndexLocation>
+<StreamLocation>^SPAGHET.UserS</StreamLocation>
+<ExtentSize>14</ExtentSize>
+<Data name="UserDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Login</Value>
+</Value>
+<Value name="3">
+<Value>Password</Value>
+</Value>
+<Value name="4">
+<Value>FirstName</Value>
+</Value>
+<Value name="5">
+<Value>LastName</Value>
+</Value>
+<Value name="6">
+<Value>RegistrationDate</Value>
+</Value>
+<Value name="7">
+<Value>PhoneNumber</Value>
+</Value>
+<Value name="8">
+<Value>Address</Value>
+</Value>
+<Value name="9">
+<Value>Email</Value>
+</Value>
+<Value name="10">
+<Value>Name</Value>
+</Value>
+</Data>
+<Property name="%%CLASSNAME">
+<Selectivity>100.0000%</Selectivity>
+<AverageFieldSize>1</AverageFieldSize>
+</Property>
+<Property name="%%ID">
+<Selectivity>1</Selectivity>
+<AverageFieldSize>1.36</AverageFieldSize>
+</Property>
+<Property name="Address">
+<Selectivity>7.1429%</Selectivity>
+<AverageFieldSize>4.71</AverageFieldSize>
+</Property>
+<Property name="Email">
+<Selectivity>7.1429%</Selectivity>
+<AverageFieldSize>4.21</AverageFieldSize>
+</Property>
+<Property name="FirstName">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>5</AverageFieldSize>
+</Property>
+<Property name="LastName">
+<Selectivity>10.0000%</Selectivity>
+<AverageFieldSize>4.8</AverageFieldSize>
+</Property>
+<Property name="Login">
+<Selectivity>7.1429%</Selectivity>
+<AverageFieldSize>4.71</AverageFieldSize>
+</Property>
+<Property name="Name">
+<Selectivity>9.0909%</Selectivity>
+<AverageFieldSize>11.93</AverageFieldSize>
+</Property>
+<Property name="Password">
+<Selectivity>7.1429%</Selectivity>
+<AverageFieldSize>4.64</AverageFieldSize>
+</Property>
+<Property name="PhoneNumber">
+<Selectivity>7.1429%</Selectivity>
+<AverageFieldSize>4.64</AverageFieldSize>
+</Property>
+<Property name="RegistrationDate">
+<Selectivity>7.1429%</Selectivity>
+<AverageFieldSize>4.71</AverageFieldSize>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-4</BlockCount>
+</SQLMap>
+</Storage>
+</Class>
+
+
+<Package name="SPAGHET" sqlname="SPAGHET"/>
+</Export>

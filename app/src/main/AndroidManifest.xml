@@ -23,8 +23,9 @@
             android:name=".LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<<<<<<< HEAD
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -35,8 +36,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-=======
->>>>>>> dc8201c38d5afe0a43e1eb5576ad8ed262f7c655
+
         </activity>
 
         <meta-data
@@ -50,13 +50,11 @@
             android:name=".CookActivity"
             android:label="@string/title_activity_cook"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
         <activity android:name=".NewDishActivity" />
+
         <activity
             android:name=".SelectLocationActivity"
             android:label="@string/title_activity_select_location">
@@ -64,6 +62,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.oi.spaghet1.NewDishActivity" />
         </activity>
+
         <activity android:name=".CookHistoryActivity"></activity>
     </application>
 

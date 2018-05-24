@@ -36,7 +36,7 @@ public class NewDishActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_dish);
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://ae9845f5.ngrok.io")
+                .baseUrl(SpaghetAPI.serverURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
