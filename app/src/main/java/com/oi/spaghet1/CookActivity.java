@@ -38,7 +38,11 @@ public class CookActivity extends AppCompatActivity {
         applyFont((TextView)findViewById(R.id.cookLogoText), this);
 
         retrofit = new Retrofit.Builder()
+<<<<<<< HEAD
                 .baseUrl(SpaghetAPI.serverURL)
+=======
+                .baseUrl("http://ae9845f5.ngrok.io")
+>>>>>>> dc8201c38d5afe0a43e1eb5576ad8ed262f7c655
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -63,6 +67,7 @@ public class CookActivity extends AppCompatActivity {
                                 Categories.addSubcatToCat(cl.getChildren().get(i).getCatName(), cl.getChildren().get(i).getSubName());
                             }
                             Intent intent = new Intent(CookActivity.this, NewDishActivity.class);
+                            intent.putExtra("UserID", UserID);
                             startActivityForResult(intent, 1);
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(CookActivity.this);

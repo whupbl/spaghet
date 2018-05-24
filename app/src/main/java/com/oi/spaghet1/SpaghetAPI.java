@@ -24,6 +24,15 @@ public interface SpaghetAPI {
     @GET("/spaghet/history/assess/client")
     Call<RequestStatus> assessOrder(@Query("ID") String orderID, @Query("Mark") String mark);
 
+    @GET("/spaghet/dishes/add")
+    Call<RequestStatus> addDish(@Query("UserID") String userID,
+                                @Query("Name") String name,
+                                @Query("Sub") String sub,
+                                @Query("Price") String price,
+                                @Query("Description") String desc,
+                                @Query("CookingTime") String cookingTime);
+
+
     @GET("/spaghet/history/get/client")
     Call<ClientHistory> getHistory (@Query("ID") String userID);
 

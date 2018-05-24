@@ -105,8 +105,8 @@ public class SelectLocationActivity extends FragmentActivity implements OnMapRea
 
                         Intent intent = new Intent();
 
-                        intent.putExtra("latitude", String.valueOf(latLng.latitude));
-                        intent.putExtra("longitude", String.valueOf(latLng.longitude));
+                        intent.putExtra("latitude", latLng.latitude);
+                        intent.putExtra("longitude", latLng.longitude);
 
                         intent.putExtra("requestCode", 1);
                         setResult(RESULT_OK, intent);

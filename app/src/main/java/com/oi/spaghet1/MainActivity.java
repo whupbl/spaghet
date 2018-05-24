@@ -96,7 +96,11 @@ public class MainActivity extends AppCompatActivity
 
 
         retrofit = new Retrofit.Builder()
+<<<<<<< HEAD
                 .baseUrl(SpaghetAPI.serverURL)
+=======
+                .baseUrl("http://ae9845f5.ngrok.io")
+>>>>>>> dc8201c38d5afe0a43e1eb5576ad8ed262f7c655
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
